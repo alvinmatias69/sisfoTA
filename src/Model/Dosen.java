@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Model;
 
 import java.util.ArrayList;
 
@@ -13,11 +13,19 @@ import java.util.ArrayList;
  */
 public class Dosen extends Orang{
     private String kodeDosen;
+    private String password;
     private ArrayList<KelompokTA> topikTA;
 
     public Dosen(String kodeDosen, String nama, String alamat, String ttl, String gender) {
         super(nama, alamat, ttl, gender);
         this.kodeDosen = kodeDosen;
+        topikTA = new ArrayList();
+    }
+    
+    public Dosen(String kodeDosen, String password, String nama, String alamat, String ttl, String gender) {
+        super(nama, alamat, ttl, gender);
+        this.kodeDosen = kodeDosen;
+        this.password = password;
         topikTA = new ArrayList();
     }
 

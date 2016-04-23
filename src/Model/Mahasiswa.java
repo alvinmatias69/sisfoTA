@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Model;
 
 /**
  *
@@ -12,12 +12,20 @@ package model;
 public class Mahasiswa extends Orang{
     String nim;
     String status;
+    String password;
     TugasAkhir tugasAkhir;
-    
-    public Mahasiswa(String nama, String alamat, String ttl, String gender, String status, String nim) {
+
+    public Mahasiswa(String nim, String status, String nama, String alamat, String ttl, String gender) {
         super(nama, alamat, ttl, gender);
-        this.status = status;
         this.nim = nim;
+        this.status = status;
+    }
+
+    public Mahasiswa(String nim, String status, String password, String nama, String alamat, String ttl, String gender) {
+        super(nama, alamat, ttl, gender);
+        this.nim = nim;
+        this.status = status;
+        this.password = password;
     }
 
     public String getNim() {
