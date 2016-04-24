@@ -7,6 +7,7 @@ package Model;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 /**
  *
  * @author alvinmatias69
@@ -64,6 +65,37 @@ public class Database {
             ResultSet rs = stmt.executeQuery(query);
             Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("status"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
             return m;
+        }catch (SQLException e){
+            return null;
+        }
+    }
+    
+    public ArrayList<KelompokTA> getAllKelompokTA(String kodeDosen){
+        String query = "select * from KelompokTA where kodeDosen = '" + kodeDosen + "';";
+        ArrayList<KelompokTA> kelompokTA = new ArrayList();
+        try{
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                KelompokTA kel = new KelompokTA(rs.getString("topik"));
+                kel.setIdKelompok(rs.getInt("idKelompok"));
+                kelompokTA.add(kel);
+            }
+            return kelompokTA;
+        }catch (SQLException e){
+            return null;
+        }
+    }
+    
+    public ArrayList<Mahasiswa> getAllMahasiswa(String topik){
+        String query = "select * from Mahasiswa where topik ='" + topik + "';";
+        ArrayList<Mahasiswa> anggota = new ArrayList();
+        try{
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("status"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
+                anggota.add(m);
+            }
+            return anggota;
         }catch (SQLException e){
             return null;
         }

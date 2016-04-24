@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author alvinmatias69
  */
 public class KelompokTA {
+    private int idKelompok;
     private String topik;
     ArrayList<Mahasiswa> anggota;
 
@@ -26,6 +27,14 @@ public class KelompokTA {
 
     public String getTopik() {
         return topik;
+    }
+
+    public int getIdKelompok() {
+        return idKelompok;
+    }
+    
+    public void setIdKelompok(int id){
+        this.idKelompok = id;
     }
     
     public void addAnggota(Mahasiswa m){
