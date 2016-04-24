@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.Database;
+import Model.Dosen;
 import View.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +36,11 @@ public class ControllerLogin implements ActionListener, FocusListener{
         Object source = e.getSource();
         if(source.equals(view.getBtnLoginDosen())){
             if(db.loginDosen(view.getKode(), new String (view.getPassword()))){
-                //inisiasi menu dosen
+                Dosen d = null;
+                d = db.selectDosen(view.getKode());
+                d.setTopikTA(db.getAllKelompokTA(view.getKode()));
+                new ControllerMenuDosen(d);
+                view.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Kode Dosen atau Password Salah, coba lagi");
             }

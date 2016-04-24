@@ -36,6 +36,10 @@ public class Dosen extends Orang{
     public void setKodeDosen(String kodeDosen) {
         this.kodeDosen = kodeDosen;
     }
+
+    public void setTopikTA(ArrayList<KelompokTA> topikTA) {
+        this.topikTA = (ArrayList<KelompokTA>)topikTA.clone();
+    }
     
     public void createKelompokTA(String topik){
         KelompokTA kel = new KelompokTA(topik);
@@ -55,6 +59,18 @@ public class Dosen extends Orang{
     
     public KelompokTA getKelompokTA(int idx){
         return topikTA.get(idx);
+    }
+    
+    public KelompokTA getKelompokTAbyID(int id){
+        int i = 0;
+        while ((i < topikTA.size()) && (topikTA.get(i).getIdKelompok()!= id)){
+            i++;
+        }
+        if ( (topikTA.get(i) != null) && (topikTA.get(i).getIdKelompok() == id ) ){
+            return topikTA.get(i);
+        } else{
+            return null;
+        }
     }
     
     public void removeKelompokTA(KelompokTA kel){

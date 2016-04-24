@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class KelompokTA {
     private int idKelompok;
     private String topik;
-    ArrayList<Mahasiswa> anggota;
+    private ArrayList<Mahasiswa> anggota;
 
     public KelompokTA(String topik) {
         this.topik = topik;
@@ -43,6 +43,14 @@ public class KelompokTA {
     
     public void removeAnggota (Mahasiswa m){
         anggota.remove(m);
+    }
+
+    public void setAnggota(ArrayList<Mahasiswa> anggota) {
+        this.anggota = (ArrayList<Mahasiswa>)anggota.clone();
+    }
+    
+    public ArrayList<Mahasiswa> getAllAnggota(){
+        return anggota;
     }
     
     public Mahasiswa getAnggota(String nim){
