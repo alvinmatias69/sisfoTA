@@ -100,4 +100,14 @@ public class Database {
             return null;
         }
     }
+    
+    public void updateKelompokt(int idKelompok, String nim) throws SQLException{
+        String query;
+        if(idKelompok == -1){
+            query = "update Mahasiswa set idKelompok ='' where nim = '" + nim +"';";
+        } else{
+            query = "update Mahasiswa set idKelompok = '" + idKelompok + "' where nim = '" + nim + "';";
+        }
+        stmt.execute(query);
+    }
 }
