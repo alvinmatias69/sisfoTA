@@ -41,7 +41,7 @@ public class ControllerMenuDosen  implements ActionListener{
         } else if(source.equals(view.getBtnEdit())){
             //inisiasi controller edit kelompok TA
         } else if(source.equals(view.getBtnSet())){
-            //inisiasi controller set pembimbing
+            new ControllerAssignPembimbing(d);
         } else if(source.equals(view.getBtnShow())){
             new ControllerShowKelompok(d);
         } else{

@@ -101,13 +101,23 @@ public class Database {
         }
     }
     
-    public void updateKelompokt(int idKelompok, String nim) throws SQLException{
+    public void updateKelompokTA(int idKelompok, String nim) throws SQLException{
         String query;
         if(idKelompok == -1){
             query = "update Mahasiswa set idKelompok ='' where nim = '" + nim +"';";
         } else{
             query = "update Mahasiswa set idKelompok = '" + idKelompok + "' where nim = '" + nim + "';";
         }
+        stmt.execute(query);
+    }
+    
+    public void insertKelompokTA(KelompokTA kel, String kodeDosen) throws SQLException{
+        String query = "insert into kelompokTA(topik, kodeDosen) values ('" + kel.getTopik() + "', '" + kodeDosen + "');";
+        stmt.execute(query);
+    }
+    
+    public void setPembimbing(String judulTA, String kodeDosen, int nomer) throws SQLException{
+        String query = "update TugasAkhir set kodePembimbing" + nomer + " = '" + kodeDosen + "' where judulTA = '" + judulTA + "';";
         stmt.execute(query);
     }
 }
