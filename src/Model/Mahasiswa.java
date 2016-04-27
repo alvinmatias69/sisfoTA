@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Controller.ControllerMenuMahasiswa;
+
 /**
  *
  * @author alvinmatias69
@@ -26,6 +28,10 @@ public class Mahasiswa extends Orang{
         this.nim = nim;
         this.status = status;
         this.password = password;
+    }
+
+    public Mahasiswa() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getNim() {
@@ -54,5 +60,13 @@ public class Mahasiswa extends Orang{
     
     public void editJudul(String judul){
         tugasAkhir.setJudul(judul);
+    }
+
+    public void addListener(ControllerMenuMahasiswa aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setVisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
