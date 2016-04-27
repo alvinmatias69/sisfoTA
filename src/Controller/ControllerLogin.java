@@ -7,6 +7,7 @@ package Controller;
 
 import Model.Database;
 import Model.Dosen;
+import Model.Mahasiswa;
 import View.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,8 @@ public class ControllerLogin implements ActionListener, FocusListener{
     Database db;
     
     public ControllerLogin(){
+        db  = new Database();
+        db.connect();
         view = new Login();
         view.setVisible(true);
         view.addListener(this);
@@ -35,18 +38,18 @@ public class ControllerLogin implements ActionListener, FocusListener{
     public void actionPerformed(ActionEvent e){
         Object source = e.getSource();
         if(source.equals(view.getBtnLoginDosen())){
-            if(db.loginDosen(view.getKode(), new String (view.getPassword()))){
-                Dosen d = null;
+            if(db.loginDosen(view.getKode(), view.getPassword())){
+                Dosen d = new Dosen("","","","");
                 d = db.selectDosen(view.getKode());
-                d.setTopikTA(db.getAllKelompokTA(view.getKode()));
-                new ControllerMenuDosen(d);
+//                d.setTopikTA(db.getAllKelompokTA(view.getKode()));
                 view.dispose();
+                new ControllerMenuDosen(d);
             }else{
                 JOptionPane.showMessageDialog(null, "Kode Dosen atau Password Salah, coba lagi");
             }
         }else{
             if(db.loginMahasiswa(view.getKode(), new String(view.getPassword()))){
-                //inisiasi menu mahasiswa
+                Mahasiswa m = db.selectMahasiswa(view.getKode());
             }else{
                 JOptionPane.showMessageDialog(null, "NIM atau Password Salah, coba lagi");
             }

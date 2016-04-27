@@ -26,6 +26,8 @@ public class ControllerShowKelompok implements ActionListener, FocusListener{
     
     public ControllerShowKelompok(Dosen d) {
         this.d = d;
+        db = new Database();
+        db.connect();
         view = new ShowKelompok();
         view.setVisible(true);
         view.addListener(this);
@@ -37,24 +39,34 @@ public class ControllerShowKelompok implements ActionListener, FocusListener{
         Object source = e.getSource();
         if(source.equals(view.getBtnIndex())){
             int idx = Integer.parseInt(view.getTfNomor());
-            d.getKelompokTA(idx).setAnggota(db.getAllMahasiswa(d.getKelompokTA(idx).getTopik()));
-            String message = "ID Kelompok : " + d.getKelompokTA(idx).getIdKelompok() + "\n"
-                           + "Topik       : " + d.getKelompokTA(idx).getTopik() + "\n"
-                           + "Anggota\n";
-            for(int i = 0; i < d.getKelompokTA(idx).getAllAnggota().size(); i++){
-                message = message + "(" + d.getKelompokTA(idx).getAnggota(i).getNim() + ") " + 
-                          d.getKelompokTA(idx).getAnggota(i).getNama() + "\n";
+            String message;
+//            d.getKelompokTA(idx).setAnggota(db.getAllMahasiswa(d.getKelompokTA(idx).getTopik()));
+            if(d.getKelompokTA(idx) == (null)){
+                message = "Maaf, tidak ada kelompok dengan index " + idx;
+            }else{
+                message = "ID Kelompok : " + d.getKelompokTA(idx).getIdKelompok() + "\n"
+                               + "Topik       : " + d.getKelompokTA(idx).getTopik() + "\n"
+                               + "Anggota\n";
+                for(int i = 0; i < d.getKelompokTA(idx).getAllAnggota().size(); i++){
+                    message = message + "(" + d.getKelompokTA(idx).getAnggota(i).getNim() + ") " + 
+                              d.getKelompokTA(idx).getAnggota(i).getNama() + "\n";
+                }
             }
             JOptionPane.showMessageDialog(null, message);
         }else if (source.equals(view.getBtnIDKel())) {
+            String message;
             int id = Integer.parseInt(view.getTfNomor());
-            d.getKelompokTAbyID(id).setAnggota(db.getAllMahasiswa(d.getKelompokTAbyID(id).getTopik()));
-            String message = "ID Kelompok : " + d.getKelompokTAbyID(id).getIdKelompok() + "\n"
-                           + "Topik       : " + d.getKelompokTAbyID(id).getTopik() + "\n"
-                           + "Anggota\n";
-            for(int i = 0; i < d.getKelompokTAbyID(id).getAllAnggota().size(); i++){
-                message = message + "(" + d.getKelompokTAbyID(id).getAnggota(i).getNim() + ") " + 
-                          d.getKelompokTAbyID(id).getAnggota(i).getNama() + "\n";
+//            d.getKelompokTAbyID(id).setAnggota(db.getAllMahasiswa(d.getKelompokTAbyID(id).getTopik()));
+            if(d.getKelompokTAbyID(id) == (null)){
+                message = "maaf, tidak ada Kelompok dengan ID " + id;
+            }else{
+                message = "ID Kelompok : " + d.getKelompokTAbyID(id).getIdKelompok() + "\n"
+                               + "Topik       : " + d.getKelompokTAbyID(id).getTopik() + "\n"
+                               + "Anggota\n";
+                for(int i = 0; i < d.getKelompokTAbyID(id).getAllAnggota().size(); i++){
+                    message = message + "(" + d.getKelompokTAbyID(id).getAnggota(i).getNim() + ") " + 
+                              d.getKelompokTAbyID(id).getAnggota(i).getNama() + "\n";
+                }
             }
             JOptionPane.showMessageDialog(null, message);
         }else{

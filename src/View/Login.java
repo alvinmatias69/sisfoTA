@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -160,8 +161,9 @@ public class Login extends javax.swing.JFrame {
         return tfKode.getText();
     }
 
-    public char[] getPassword() {
-        return tfPassword.getPassword();
+    public String getPassword(){
+        String str = new String(tfPassword.getPassword());
+        return str;
     }
 
     public JTextField getTfKode() {

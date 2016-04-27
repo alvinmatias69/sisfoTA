@@ -18,7 +18,8 @@ public class KelompokTA {
 
     public KelompokTA(String topik) {
         this.topik = topik;
-        anggota = new ArrayList();
+        this.idKelompok = 0;
+        anggota = new ArrayList<Mahasiswa>();
     }
 
     public void setTopik(String topik) {

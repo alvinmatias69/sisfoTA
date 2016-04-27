@@ -7,6 +7,7 @@ package View;
 
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -146,6 +147,10 @@ public class MenuDosen extends javax.swing.JFrame {
 
     public JButton getBtnLogout() {
         return btnLogout;
+    }
+
+    public JInternalFrame getjInternalFrame1() {
+        return jInternalFrame1;
     }
 
     public void addListener(ActionListener e) {

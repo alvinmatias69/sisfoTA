@@ -52,6 +52,7 @@ public class Database {
         String query = "select * from Dosen where kodeDosen = '" + kodeDosen + "';";
         try{
             ResultSet rs = stmt.executeQuery(query);
+            rs.next();
             Dosen d = new Dosen(rs.getString("kodeDosen"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
             return d;
         } catch (SQLException e){
@@ -63,6 +64,7 @@ public class Database {
         String query = "select * from Mahasiswa where nim = '" + nim + "';";
         try{
             ResultSet rs = stmt.executeQuery(query);
+            rs.next();
             Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("status"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
             return m;
         }catch (SQLException e){
@@ -72,17 +74,25 @@ public class Database {
     
     public ArrayList<KelompokTA> getAllKelompokTA(String kodeDosen){
         String query = "select * from KelompokTA where kodeDosen = '" + kodeDosen + "';";
-        ArrayList<KelompokTA> kelompokTA = new ArrayList();
+        ArrayList<KelompokTA> kelompokTA = new ArrayList<KelompokTA>();
         try{
             ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()){
-                KelompokTA kel = new KelompokTA(rs.getString("topik"));
-                kel.setIdKelompok(rs.getInt("idKelompok"));
+            if(! rs.next()){
+                KelompokTA kel = new KelompokTA("");
+//                kel.setIdKelompok(0);
+//                kel.setAnggota(new ArrayList<Mahasiswa>());
                 kelompokTA.add(kel);
+            }else{
+                do{
+                    KelompokTA kel = new KelompokTA(rs.getString("topik"));
+                    kel.setIdKelompok(rs.getInt("idKelompok"));
+//                    kel.setAnggota(new ArrayList<Mahasiswa>());
+                    kelompokTA.add(kel);
+                }while(rs.next());
             }
             return kelompokTA;
         }catch (SQLException e){
-            return null;
+            return kelompokTA;
         }
     }
     
@@ -112,12 +122,18 @@ public class Database {
     }
     
     public void insertKelompokTA(KelompokTA kel, String kodeDosen) throws SQLException{
-        String query = "insert into kelompokTA(topik, kodeDosen) values ('" + kel.getTopik() + "', '" + kodeDosen + "');";
+        String query = "insert into KelompokTA(topik, kodeDosen) values ('" + kel.getTopik() + "', '" + kodeDosen + "');";
+        System.out.println(query);
         stmt.execute(query);
     }
     
     public void setPembimbing(String judulTA, String kodeDosen, int nomer) throws SQLException{
         String query = "update TugasAkhir set kodePembimbing" + nomer + " = '" + kodeDosen + "' where judulTA = '" + judulTA + "';";
+        stmt.execute(query);
+    }
+    
+    public void insertDosen(Dosen d) throws SQLException{
+        String query = "insert into Dosen(kodeDosen, password, nama, alamat, ttl, gender) values ('" + d.getKodeDosen() + "', '" + d.getPassword() + "', '" + d.getNama() + "', '" + d.getAlamat() + "', '" + d.getTtl() + "', '" + d.getGender() + "');";
         stmt.execute(query);
     }
 }

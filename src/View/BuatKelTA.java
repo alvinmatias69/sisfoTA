@@ -125,7 +125,7 @@ public class BuatKelTA extends javax.swing.JFrame {
         return tfTopik;
     }
 
-    public JButton getBtnSimpan() {
+    public JButton getBtnBuat() {
         return btnBuat;
     }
 

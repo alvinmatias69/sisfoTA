@@ -35,7 +35,7 @@ public class ControllerCreateTA {
     public void actionPerformed(ActionEvent e){
         Object source = e.getSource();
         
-        if(source.equals(view.getTfJudulTA())){
+        if(source.equals(view.getBtnCreate())){
             String judul = view.getJudulTA();
             if(ta == null){
                 TugasAkhir ta = new TugasAkhir(judul);
@@ -47,6 +47,7 @@ public class ControllerCreateTA {
         }
         if(source.equals(view.getBtnBack())){
             new ControllerMenuMahasiswa(model);
+            view.dispose();
         }
     }
 }

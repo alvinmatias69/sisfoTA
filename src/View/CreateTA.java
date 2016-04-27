@@ -23,7 +23,7 @@ public class CreateTA extends javax.swing.JFrame {
         this.setTitle("Create Tugas Akhir");
     }
 
-    public JButton getBtnCreateTA(){
+    public JButton getBtnCreate(){
         return btnCreate;
     }
     public JButton getBtnBack(){

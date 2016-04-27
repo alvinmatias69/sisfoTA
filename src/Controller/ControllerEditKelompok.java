@@ -27,7 +27,7 @@ public class ControllerEditKelompok implements ActionListener, FocusListener {
     Dosen d;
     
     public ControllerEditKelompok(Dosen d){
-        this.k=k;
+        this.d=d;
         view = new EditKelompok();
         view.setVisible(true);
         view.addListener(this);
@@ -39,7 +39,7 @@ public class ControllerEditKelompok implements ActionListener, FocusListener {
         Object source = e.getSource();
         if(source.equals(view.getBtnEnter())){
             int id=Integer.parseInt(view.getTfidKel());
-            if(d.getKelompokTAbyID(id).equals(null)){
+            if(d.getKelompokTAbyID(id) == (null)){
                 view.showMessage(view, "Tidak ada ID "+ id);
             }else{
                 new ControllerHapusAnggota(k);
@@ -47,7 +47,7 @@ public class ControllerEditKelompok implements ActionListener, FocusListener {
         }else if(source.equals(view.getBtnBack())){
             new ControllerMenuDosen(d);
         }
-       
+       view.dispose();
     }
 
     @Override
