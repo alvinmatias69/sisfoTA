@@ -23,18 +23,6 @@ public class CreateTA extends javax.swing.JFrame {
         this.setTitle("Create Tugas Akhir");
     }
 
-    public CreateTA() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public CreateTA() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public CreateTA() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public JButton getBtnCreateTA(){
         return btnCreate;
     }

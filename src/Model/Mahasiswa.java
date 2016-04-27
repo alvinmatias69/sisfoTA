@@ -30,10 +30,6 @@ public class Mahasiswa extends Orang{
         this.password = password;
     }
 
-    public Mahasiswa() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public String getNim() {
         return nim;
     }
