@@ -7,11 +7,13 @@ package Controller;
 
 import Model.Database;
 import Model.Dosen;
+import Model.Mahasiswa;
 import View.ShowKelompok;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,10 +49,17 @@ public class ControllerShowKelompok implements ActionListener, FocusListener{
                 message = "ID Kelompok : " + d.getKelompokTA(idx).getIdKelompok() + "\n"
                                + "Topik       : " + d.getKelompokTA(idx).getTopik() + "\n"
                                + "Anggota\n";
-                for(int i = 0; i < d.getKelompokTA(idx).getAllAnggota().size(); i++){
-                    message = message + "(" + d.getKelompokTA(idx).getAnggota(i).getNim() + ") " + 
-                              d.getKelompokTA(idx).getAnggota(i).getNama() + "\n";
+                ArrayList<Mahasiswa> mhs;
+                mhs = db.getAllMahasiswabyId(d.getKelompokTA(idx).getIdKelompok());
+                for(Mahasiswa m : mhs){
+                    if(! m.getNim().equals("")){
+                        message = message + "- (" + m.getNim() + ") " + m.getNama() + "\n";
+                    }
                 }
+//                for(int i = 0; i < d.getKelompokTA(idx).getAllAnggota().size(); i++){
+//                    message = message + "(" + d.getKelompokTA(idx).getAnggota(i).getNim() + ") " + 
+//                              d.getKelompokTA(idx).getAnggota(i).getNama() + "\n";
+//                }
             }
             JOptionPane.showMessageDialog(null, message);
         }else if (source.equals(view.getBtnIDKel())) {
@@ -63,10 +72,17 @@ public class ControllerShowKelompok implements ActionListener, FocusListener{
                 message = "ID Kelompok : " + d.getKelompokTAbyID(id).getIdKelompok() + "\n"
                                + "Topik       : " + d.getKelompokTAbyID(id).getTopik() + "\n"
                                + "Anggota\n";
-                for(int i = 0; i < d.getKelompokTAbyID(id).getAllAnggota().size(); i++){
-                    message = message + "(" + d.getKelompokTAbyID(id).getAnggota(i).getNim() + ") " + 
-                              d.getKelompokTAbyID(id).getAnggota(i).getNama() + "\n";
+                ArrayList<Mahasiswa> mhs;
+                mhs = db.getAllMahasiswabyId(id);
+                for(Mahasiswa m : mhs){
+                    if(! m.getNim().equals("")){
+                        message = message + "- (" + m.getNim() + ") " + m.getNama() + "\n";
+                    }
                 }
+//                for(int i = 0; i < d.getKelompokTAbyID(id).getAllAnggota().size(); i++){
+//                    message = message + "(" + d.getKelompokTAbyID(id).getAnggota(i).getNim() + ") " + 
+//                              d.getKelompokTAbyID(id).getAnggota(i).getNama() + "\n";
+//                }
             }
             JOptionPane.showMessageDialog(null, message);
         }else{

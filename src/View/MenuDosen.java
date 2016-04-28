@@ -53,7 +53,7 @@ public class MenuDosen extends javax.swing.JFrame {
 
         btnShow.setText("Tampilkan Kelompok");
 
-        btnEdit.setText("Edit Kelompk");
+        btnEdit.setText("Edit Kelompok");
 
         btnSet.setText("Set Pembimbing");
         btnSet.addActionListener(new java.awt.event.ActionListener() {

@@ -119,6 +119,27 @@ public class Database {
         }
     }
     
+    public ArrayList<Mahasiswa> getAllMahasiswabyId(int id){
+        ArrayList<Mahasiswa> mhs = new ArrayList<Mahasiswa>();
+        String query = "select * from Mahasiswa where idKelompok = '" + id + "';";
+        try{
+            ResultSet rs = stmt.executeQuery(query);
+            if(! rs.next()){
+                Mahasiswa m = new Mahasiswa("", "", "", "", "", "");
+                mhs.add(m);
+            }else{
+                do{
+                    Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("statusMahasiswa"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
+                    mhs.add(m);
+                }while(rs.next());
+            }
+            return mhs;
+        }catch(SQLException e){
+            System.out.println("getAllMahasiswabyId " + e.getMessage());
+            return mhs;
+        }
+    }
+    
     public TugasAkhir selectTugasAkhir(String nim){
         String query = "select * from TugasAkhir where nim = '" + nim + "';";
         try{
