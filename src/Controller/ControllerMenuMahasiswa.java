@@ -27,9 +27,17 @@ public class ControllerMenuMahasiswa implements ActionListener {
         this.m = m;
         db = new Database();
         db.connect();
+        this.m.setTugasAkhir(db.selectTugasAkhir(this.m.getNim()));
         view = new MenuMahasiswa();
         view.setVisible(true);
         view.addListener(this);
+        if(m.getTugasAkhir() == null){
+            view.getBtnCreateTA().setVisible(true);
+            view.getBtnEdit().setVisible(false);
+        }else{
+            view.getBtnCreateTA().setVisible(false);
+            view.getBtnEdit().setVisible(true);
+        }
     }
 
     @Override

@@ -16,6 +16,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,19 +42,21 @@ public class ControllerEditTA implements ActionListener, FocusListener{
 //        this.view.getEditJudul().addFocusListener((FocusListener) this);
         
     }
+    @Override
     public void actionPerformed(ActionEvent e){
         Object source = e.getSource();
-        
-        if(source.equals(view.getEditJudul())){
+        if(source.equals(view.getBtnSave())){
             String judul = view.getEditJudul();
-            if(ta == null){
-                TugasAkhir ta = new TugasAkhir(judul);
-                Database db = new Database();
-                view.setEditJudul(judul);
+            m.editJudul(judul);
+            try {
+                db.updateTugasAkhir(m.getNim(), judul);
+                view.showMessage(null, "Judul berhasil diganti");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
-        }
-        if(source.equals(view.getBtnBack())){
+        }else if(source.equals(view.getBtnBack())){
             new ControllerMenuMahasiswa(m);
+            view.dispose();
         }
 }
 

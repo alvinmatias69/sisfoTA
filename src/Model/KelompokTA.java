@@ -43,7 +43,7 @@ public class KelompokTA {
     }
     
     public void removeAnggota (Mahasiswa m){
-        System.out.println(anggota.remove(m));        
+        anggota.remove(m);        
     }
 
     public void setAnggota(ArrayList<Mahasiswa> anggota) {

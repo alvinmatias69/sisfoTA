@@ -39,6 +39,7 @@ public class MenuDosen extends javax.swing.JFrame {
         btnShow = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnSet = new javax.swing.JButton();
+        btnDelKelompok = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
 
@@ -55,6 +56,13 @@ public class MenuDosen extends javax.swing.JFrame {
         btnEdit.setText("Edit Kelompk");
 
         btnSet.setText("Set Pembimbing");
+        btnSet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSetActionPerformed(evt);
+            }
+        });
+
+        btnDelKelompok.setText("Hapus Kelompok");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,6 +72,7 @@ public class MenuDosen extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelKelompok, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuat, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -79,8 +88,10 @@ public class MenuDosen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelKelompok, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
@@ -105,14 +116,14 @@ public class MenuDosen extends javax.swing.JFrame {
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(btnLogout))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,6 +140,10 @@ public class MenuDosen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSetActionPerformed
+
     public JButton getBtnBuat() {
         return btnBuat;
     }
@@ -139,6 +154,10 @@ public class MenuDosen extends javax.swing.JFrame {
 
     public JButton getBtnSet() {
         return btnSet;
+    }
+
+    public JButton getBtnDelKelompok() {
+        return btnDelKelompok;
     }
 
     public JButton getBtnShow() {
@@ -159,10 +178,12 @@ public class MenuDosen extends javax.swing.JFrame {
         btnSet.addActionListener(e);
         btnShow.addActionListener(e);
         btnLogout.addActionListener(e);
+        btnDelKelompok.addActionListener(e);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuat;
+    private javax.swing.JButton btnDelKelompok;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnSet;

@@ -54,6 +54,10 @@ public class Mahasiswa extends Orang{
         }
     }
     
+    public void setTugasAkhir(TugasAkhir ta){
+        this.tugasAkhir = ta;
+    }
+    
     public void createTA(String judul){
         tugasAkhir = new TugasAkhir(judul);
     }

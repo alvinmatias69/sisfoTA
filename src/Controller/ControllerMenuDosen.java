@@ -37,6 +37,7 @@ public class ControllerMenuDosen  implements ActionListener{
         if(d.getKelompokTA(0).getTopik().equals("")){
             view.getBtnEdit().setVisible(false);
             view.getBtnShow().setVisible(false);
+            view.getBtnDelKelompok().setVisible(false);
         }
     }
 
@@ -51,6 +52,8 @@ public class ControllerMenuDosen  implements ActionListener{
             new ControllerAssignPembimbing(d);
         } else if(source.equals(view.getBtnShow())){
             new ControllerShowKelompok(d);
+        } else if(source.equals(view.getBtnDelKelompok())){
+            new ControllerHapusKelompok(d);
         } else{
             new ControllerLogin();
         }

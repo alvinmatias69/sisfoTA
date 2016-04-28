@@ -44,15 +44,20 @@ public class ControllerAssignPembimbing implements ActionListener, FocusListener
         Object source = e.getSource();
         if(source.equals(view.getBtnAssign())){
 //            db.selectMahasiswa(view.getNim()).getTugasAkhir().setPembimbing(d, view.getId());
-            if(db.selectMahasiswa(view.getNim()).equals(null)){
+            Mahasiswa m = db.selectMahasiswa(view.getNim());
+            if(m != null){
+                m.setTugasAkhir(db.selectTugasAkhir(m.getNim()));
+            }
+            if(m == null){
                 view.showMessage(null, "Tidak ada Mahasiswa tersebut di database");
-            }else if(db.selectMahasiswa(view.getNim()).getTugasAkhir().equals(null)){
+            }else if(db.selectMahasiswa(view.getNim()) == null){
                 view.showMessage(null, "Mahasiswa belum membuat tugas akhir");            
             }else{
                 try {
-                    db.setPembimbing(db.selectMahasiswa(view.getNim()).getTugasAkhir().getJudul(), d.getKodeDosen(), view.getId());
+//                    db.setPembimbing(db.selectMahasiswa(view.getNim()).getTugasAkhir().getJudul(), d.getKodeDosen(), view.getId());
+                    m.getTugasAkhir().setPembimbing(d, view.getId());
+                    db.setPembimbing(m.getTugasAkhir().getJudul(), d.getKodeDosen(), view.getId());
                     view.showMessage(null, "Berhasil Menjadi Pembimbing");
-
                 } catch (SQLException ex) {
                     view.showMessage(null, "Gagal Menjadi Pembimbing");
                 }

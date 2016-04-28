@@ -23,7 +23,10 @@ public class ControllerHapusKelompok implements ActionListener, FocusListener {
     Database db;
     HapusKelompok view;
     Dosen d;
+    
     public ControllerHapusKelompok(Dosen d){
+        db = new Database();
+        db.connect();
         this.d=d;
         view = new HapusKelompok();
         view.setVisible(true);
@@ -34,10 +37,17 @@ public class ControllerHapusKelompok implements ActionListener, FocusListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if(source.equals(view.getbtnHapus())){
-            int id=Integer.parseInt(view.getIdKel());
-            d.removeKelompokTA(d.getKelompokTAbyID(id));
+            int id = Integer.parseInt(view.getIdKel());
+            if(d.getKelompokTAbyID(id) != null){
+                d.removeKelompokTA(d.getKelompokTAbyID(id));
+                db.dropKelompokTA(id);
+                view.showMessage(null, "Berhasil hapus kelompok");
+            }else{
+                view.showMessage(null, "ID kelompok tidak ada");
+            }
         }else if(source.equals(view.getBtnBack())){
             new ControllerMenuDosen(d);
+            view.dispose();
         }
     }
 

@@ -5,8 +5,10 @@
  */
 package View;
 
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -132,7 +134,9 @@ public class HapusKelompok extends javax.swing.JFrame {
         btnHapus.addActionListener(e);
     }
     
-
+    public void showMessage(Component c, String s) {
+        JOptionPane.showMessageDialog(c, s);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnHapus;

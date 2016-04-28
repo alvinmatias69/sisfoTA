@@ -34,6 +34,7 @@ public class Database {
             ResultSet rs = stmt.executeQuery(query);
             return rs.next();
         }catch (SQLException e){
+            System.out.println("loginDosen " + e.getMessage());
             return false;
         }
     }
@@ -44,6 +45,7 @@ public class Database {
             ResultSet rs = stmt.executeQuery(query);
             return rs.next();
         }catch (SQLException e){
+            System.out.println("loginMahasiswa " + e.getMessage());
             return false;
         }
     }
@@ -56,6 +58,7 @@ public class Database {
             Dosen d = new Dosen(rs.getString("kodeDosen"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
             return d;
         } catch (SQLException e){
+            System.out.println("selectDosen " + e.getMessage());
             return null;
         }
     }
@@ -68,7 +71,7 @@ public class Database {
             Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("statusMahasiswa"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
             return m;
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("selectMahasiswa " + e.getMessage());
             return null;
         }
     }
@@ -90,7 +93,7 @@ public class Database {
             }
             return kelompokTA;
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("getAllKelompokTA " + e.getMessage());
             return kelompokTA;
         }
     }
@@ -111,8 +114,21 @@ public class Database {
             }
             return anggota;
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("getAllMahasiswa " + e.getMessage());
             return anggota;
+        }
+    }
+    
+    public TugasAkhir selectTugasAkhir(String nim){
+        String query = "select * from TugasAkhir where nim = '" + nim + "';";
+        try{
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            TugasAkhir ta = new TugasAkhir(rs.getString("judulTA"));
+            return ta;
+        } catch (SQLException e){
+            System.out.println("selectTugasAKhir " + e.getMessage());
+            return null;
         }
     }
     
@@ -140,5 +156,19 @@ public class Database {
     public void insertTugasAkhir(TugasAkhir ta, String nim) throws SQLException{
         String query = "insert into TugasAkhir(judulTA, nim, kodePembimbing1, kodePembimbing2) values('" + ta.getJudul() + "', '" + nim + "', '', '');";
         stmt.execute(query);
+    }
+    
+    public void updateTugasAkhir(String nim, String judul) throws SQLException{
+        String query = "update TugasAkhir set judulTA = '" + judul + "' where nim = '" + nim + "';";
+        stmt.execute(query);
+    }
+    
+    public void dropKelompokTA(int idKelompok){
+        String query = "delete from KelompokTA where idKelompok = '" + idKelompok + "';";
+        try{
+            stmt.execute(query);
+        }catch(SQLException e){
+            System.out.println("dropKelompok " + e.getMessage());
+        }
     }
 }
