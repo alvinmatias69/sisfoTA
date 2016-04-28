@@ -52,7 +52,7 @@ public class ControllerMenuDosen  implements ActionListener{
         } else if(source.equals(view.getBtnShow())){
             new ControllerShowKelompok(d);
         } else{
-            new Login();
+            new ControllerLogin();
         }
         view.dispose();
     }

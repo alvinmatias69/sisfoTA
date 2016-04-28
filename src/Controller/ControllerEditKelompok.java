@@ -42,7 +42,9 @@ public class ControllerEditKelompok implements ActionListener, FocusListener {
             if(d.getKelompokTAbyID(id) == (null)){
                 view.showMessage(view, "Tidak ada ID "+ id);
             }else{
-                new ControllerHapusAnggota(k);
+//                k = new KelompokTA("");
+//                k = d.getKelompokTAbyID(id);
+                new ControllerHapusAnggota(id, d);
             }
         }else if(source.equals(view.getBtnBack())){
             new ControllerMenuDosen(d);

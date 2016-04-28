@@ -15,7 +15,7 @@ public class Mahasiswa extends Orang{
     String nim;
     String status;
     String password;
-    TugasAkhir tugasAkhir;
+    TugasAkhir tugasAkhir = new TugasAkhir("");
 
     public Mahasiswa(String nim, String status, String nama, String alamat, String ttl, String gender) {
         super(nama, alamat, ttl, gender);
@@ -47,7 +47,11 @@ public class Mahasiswa extends Orang{
     }
     
     public TugasAkhir getTugasAkhir(){
-        return tugasAkhir;
+        if(tugasAkhir.getJudul().equals("")){
+            return null;
+        }else{
+            return tugasAkhir;   
+        }
     }
     
     public void createTA(String judul){

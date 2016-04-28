@@ -17,22 +17,31 @@ import java.awt.event.ActionListener;
  *
  * @author Rachmi
  */
-public class ControllerMenuMahasiswa {
-    Database model;
+public class ControllerMenuMahasiswa implements ActionListener {
+
+    Database db;
     MenuMahasiswa view;
-    
-    public ControllerMenuMahasiswa(Database model){
-        this.model=model;
+    Mahasiswa m;
+
+    public ControllerMenuMahasiswa(Mahasiswa m) {
+        this.m = m;
+        db = new Database();
+        db.connect();
         view = new MenuMahasiswa();
         view.setVisible(true);
-        view.addListener((ActionListener) this);
+        view.addListener(this);
     }
-     public void actionPerformed(ActionEvent e){
-         Object source = e.getSource();
-         if(source.equals(view.getBtnCreateTA())){
-             new ControllerCreateTA(model);
-         }else if(source.equals(view.getBtnEdit())){
-             new ControllerEditTA(model);
-         }
-     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source.equals(view.getBtnCreateTA())) {
+            new ControllerCreateTA(m);
+        } else if (source.equals(view.getBtnEdit())) {
+            new ControllerEditTA(m);
+        } else {
+            new ControllerLogin();
+        }
+        view.dispose();
+    }
 }

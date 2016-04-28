@@ -43,7 +43,7 @@ public class KelompokTA {
     }
     
     public void removeAnggota (Mahasiswa m){
-        anggota.remove(m);
+        System.out.println(anggota.remove(m));        
     }
 
     public void setAnggota(ArrayList<Mahasiswa> anggota) {
@@ -56,10 +56,16 @@ public class KelompokTA {
     
     public Mahasiswa getAnggota(String nim){
         int i = 0;
-        while ( (i < anggota.size()) && (anggota.get(i).getNim() != nim) )
+        int found = -1;
+        while ( (i < anggota.size()) && (found == -1) ){
+            if(anggota.get(i).getNim().equals(nim)){
+                found = i;
+            }
             i++;
-        if( (anggota.get(i) != null) && (anggota.get(i).getNim() == nim) ){
-            return anggota.get(i);
+        }
+//        System.out.println(found);
+        if( found != -1 ){
+            return anggota.get(found);
         }else{
             return null;
         }

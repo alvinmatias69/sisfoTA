@@ -49,7 +49,13 @@ public class ControllerLogin implements ActionListener, FocusListener{
             }
         }else{
             if(db.loginMahasiswa(view.getKode(), new String(view.getPassword()))){
-                Mahasiswa m = db.selectMahasiswa(view.getKode());
+                Mahasiswa m;
+                m = db.selectMahasiswa(view.getKode());
+//                if(m!=null){
+//                    System.out.println("mhs ada");
+//                }
+                new ControllerMenuMahasiswa(m);
+                view.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "NIM atau Password Salah, coba lagi");
             }

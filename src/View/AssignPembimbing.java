@@ -5,9 +5,11 @@
  */
 package View;
 
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -189,6 +191,9 @@ public class AssignPembimbing extends javax.swing.JFrame {
         btnBack.addActionListener(ae);
     }
 
+    public void showMessage(Component c, String s) {
+        JOptionPane.showMessageDialog(c, s);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnBack;

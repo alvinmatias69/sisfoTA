@@ -25,12 +25,20 @@ import javax.swing.JOptionPane;
  * @author Dian Dwi Arini
  */
 public class ControllerHapusAnggota implements ActionListener, FocusListener {
+
     Database db;
     MenuEdit view;
-    KelompokTA k;
+//    KelompokTA k;
+    int id;
     Dosen d;
-    public ControllerHapusAnggota(KelompokTA k){
-        this.k=k;
+
+    public ControllerHapusAnggota(int id, Dosen d) {
+//        this.k = k;
+        this.id = id;
+        this.d = d;
+        db = new Database();
+        db.connect();
+        this.d.getKelompokTAbyID(id).setAnggota(db.getAllMahasiswa(this.d.getKelompokTAbyID(id).getTopik()));
         view = new MenuEdit();
         view.setVisible(true);
         view.addListener(this);
@@ -40,47 +48,53 @@ public class ControllerHapusAnggota implements ActionListener, FocusListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if(source.equals(view.getBtnHapus())){
-            String nim=view.getNIM();
-                if(k.getAnggota(nim).equals(null)){
-                    view.showMessage(view, "NIM "+nim+ " tidak terdaftar di kelompok manapun");
-                }else{
-                    k.removeAnggota(db.selectMahasiswa(nim));
+        if (source.equals(view.getBtnHapus())) {
+            String nim = view.getNIM();
+            if (d.getKelompokTAbyID(id).getAnggota(nim) == (null)) {
+                view.showMessage(view, "NIM " + nim + " tidak terdaftar di kelompok tersebut");
+            } else {
+                d.getKelompokTAbyID(id).removeAnggota(d.getKelompokTAbyID(id).getAnggota(nim));
                 try {
                     db.updateKelompokTA(-1, nim);
                 } catch (SQLException ex) {
                     Logger.getLogger(ControllerHapusAnggota.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                    view.showMessage(view, "NIM "+nim+ " berhasil dihapus");
+                view.showMessage(view, "NIM " + nim + " berhasil dihapus");
             }
-        }else if(source.equals(view.getBtnTambah())){
-            String nim=view.getNIM();
-            k.setAnggota(db.getAllMahasiswa(k.getTopik()));
-            if (k.getAnggota(nim).equals(null)){
-                k.addAnggota(db.selectMahasiswa(nim));
-                try {
-                    db.updateKelompokTA(k.getIdKelompok(), nim);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ControllerHapusAnggota.class.getName()).log(Level.SEVERE, null, ex);
+        } else if (source.equals(view.getBtnTambah())) {
+            String nim = view.getNIM();
+            d.getKelompokTAbyID(id).setAnggota(db.getAllMahasiswa(d.getKelompokTAbyID(id).getTopik()));
+            if (db.selectMahasiswa(nim) != null){
+                if (d.getKelompokTAbyID(id).getAnggota(nim) == null) {
+                    d.getKelompokTAbyID(id).addAnggota(db.selectMahasiswa(nim));
+                    try {
+                        db.updateKelompokTA(id, nim);
+                        view.showMessage(null, "Berhasil menambahkan Anggota");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ControllerHapusAnggota.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    view.showMessage(view, "NIM " + nim + " sudah terdaftar");
                 }
             } else{
-                view.showMessage(view, "NIM "+nim+ " sudah terdaftar");
+                view.showMessage(view, "NIM " + nim + " tidak ada dalam database");
             }
-        }else if(source.equals(view.getBtnBack())){
+        } else if (source.equals(view.getBtnBack())) {
             new ControllerEditKelompok(d);
+            view.dispose();
         }
     }
 
     @Override
     public void focusGained(FocusEvent e) {
-        
+
     }
 
     @Override
     public void focusLost(FocusEvent e) {
         Object o = e.getSource();
-        if (o.equals(this.view.getTfNIM())){
-            if(this.view.getTfNIM().getText().equals("")){
+        if (o.equals(this.view.getTfNIM())) {
+            if (this.view.getTfNIM().getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Tidak Boleh Kosong");
             }
         }

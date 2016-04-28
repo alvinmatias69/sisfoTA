@@ -65,9 +65,10 @@ public class Database {
         try{
             ResultSet rs = stmt.executeQuery(query);
             rs.next();
-            Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("status"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
+            Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("statusMahasiswa"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
             return m;
         }catch (SQLException e){
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -79,51 +80,50 @@ public class Database {
             ResultSet rs = stmt.executeQuery(query);
             if(! rs.next()){
                 KelompokTA kel = new KelompokTA("");
-//                kel.setIdKelompok(0);
-//                kel.setAnggota(new ArrayList<Mahasiswa>());
                 kelompokTA.add(kel);
             }else{
                 do{
                     KelompokTA kel = new KelompokTA(rs.getString("topik"));
                     kel.setIdKelompok(rs.getInt("idKelompok"));
-//                    kel.setAnggota(new ArrayList<Mahasiswa>());
                     kelompokTA.add(kel);
                 }while(rs.next());
             }
             return kelompokTA;
         }catch (SQLException e){
+            System.out.println(e.getMessage());
             return kelompokTA;
         }
     }
     
     public ArrayList<Mahasiswa> getAllMahasiswa(String topik){
-        String query = "select * from Mahasiswa where topik ='" + topik + "';";
-        ArrayList<Mahasiswa> anggota = new ArrayList();
+        String query = "select * from Mahasiswa join KelompokTA using (idKelompok) where topik ='" + topik + "';";
+        ArrayList<Mahasiswa> anggota = new ArrayList<Mahasiswa>();
         try{
             ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()){
-                Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("status"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
+            if(! rs.next()){
+                Mahasiswa m = new Mahasiswa("", "", "", "", "", "");
                 anggota.add(m);
+            }else{
+                do{
+                    Mahasiswa m = new Mahasiswa(rs.getString("nim"), rs.getString("statusMahasiswa"), rs.getString("nama"), rs.getString("alamat"), rs.getString("ttl"), rs.getString("gender"));
+                    anggota.add(m);
+                }while(rs.next());
             }
             return anggota;
         }catch (SQLException e){
-            return null;
+            System.out.println(e.getMessage());
+            return anggota;
         }
     }
     
     public void updateKelompokTA(int idKelompok, String nim) throws SQLException{
         String query;
-        if(idKelompok == -1){
-            query = "update Mahasiswa set idKelompok ='' where nim = '" + nim +"';";
-        } else{
-            query = "update Mahasiswa set idKelompok = '" + idKelompok + "' where nim = '" + nim + "';";
-        }
+        query = "update Mahasiswa set idKelompok = '" + idKelompok + "' where nim = '" + nim + "';";
         stmt.execute(query);
     }
     
     public void insertKelompokTA(KelompokTA kel, String kodeDosen) throws SQLException{
         String query = "insert into KelompokTA(topik, kodeDosen) values ('" + kel.getTopik() + "', '" + kodeDosen + "');";
-        System.out.println(query);
         stmt.execute(query);
     }
     
@@ -134,6 +134,11 @@ public class Database {
     
     public void insertDosen(Dosen d) throws SQLException{
         String query = "insert into Dosen(kodeDosen, password, nama, alamat, ttl, gender) values ('" + d.getKodeDosen() + "', '" + d.getPassword() + "', '" + d.getNama() + "', '" + d.getAlamat() + "', '" + d.getTtl() + "', '" + d.getGender() + "');";
+        stmt.execute(query);
+    }
+    
+    public void insertTugasAkhir(TugasAkhir ta, String nim) throws SQLException{
+        String query = "insert into TugasAkhir(judulTA, nim, kodePembimbing1, kodePembimbing2) values('" + ta.getJudul() + "', '" + nim + "', '', '');";
         stmt.execute(query);
     }
 }

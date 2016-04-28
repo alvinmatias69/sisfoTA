@@ -22,17 +22,19 @@ import java.awt.event.FocusListener;
  * @author Rachmi
  */
 public class ControllerEditTA implements ActionListener, FocusListener{
-    Database model;
+    Database db;
+    Mahasiswa m;
     EditTA view;
     TugasAkhir ta;
     
-    public ControllerEditTA(Database model) {
-        this.model=model;
+    public ControllerEditTA(Mahasiswa m) {
+        this.m=m;
+        db = new Database();
+        db.connect();
         view = new EditTA();
         view.setVisible(true);
         view.addListener((ActionListener) this);
         this.ta = null;
-        
 //        this.view.getEditJudul().addFocusListener((FocusListener) this);
         
     }
@@ -48,7 +50,7 @@ public class ControllerEditTA implements ActionListener, FocusListener{
             }
         }
         if(source.equals(view.getBtnBack())){
-            new ControllerMenuMahasiswa(model);
+            new ControllerMenuMahasiswa(m);
         }
 }
 

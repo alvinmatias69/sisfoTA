@@ -30,6 +30,8 @@ public class ControllerAssignPembimbing implements ActionListener, FocusListener
 
     public ControllerAssignPembimbing(Dosen d) {
         this.d = d;
+        db = new Database();
+        db.connect();
         view = new AssignPembimbing();
         view.setVisible(true);
         view.addListener(this);
@@ -41,12 +43,23 @@ public class ControllerAssignPembimbing implements ActionListener, FocusListener
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if(source.equals(view.getBtnAssign())){
-            db.selectMahasiswa(view.getNim()).getTugasAkhir().setPembimbing(d, view.getId());
-            try {
-                db.setPembimbing(db.selectMahasiswa(view.getNim()).getTugasAkhir().getJudul(), d.getKodeDosen(), view.getId());
-            } catch (SQLException ex) {
-                Logger.getLogger(ControllerAssignPembimbing.class.getName()).log(Level.SEVERE, null, ex);
+//            db.selectMahasiswa(view.getNim()).getTugasAkhir().setPembimbing(d, view.getId());
+            if(db.selectMahasiswa(view.getNim()).equals(null)){
+                view.showMessage(null, "Tidak ada Mahasiswa tersebut di database");
+            }else if(db.selectMahasiswa(view.getNim()).getTugasAkhir().equals(null)){
+                view.showMessage(null, "Mahasiswa belum membuat tugas akhir");            
+            }else{
+                try {
+                    db.setPembimbing(db.selectMahasiswa(view.getNim()).getTugasAkhir().getJudul(), d.getKodeDosen(), view.getId());
+                    view.showMessage(null, "Berhasil Menjadi Pembimbing");
+
+                } catch (SQLException ex) {
+                    view.showMessage(null, "Gagal Menjadi Pembimbing");
+                }
             }
+        }else{
+            new ControllerMenuDosen(d);
+            view.dispose();
         }
     }
 
